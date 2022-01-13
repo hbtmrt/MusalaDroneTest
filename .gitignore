@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MusalaDrones/.vs/MusalaDrones/v16
+/MusalaDrones/MusalaDrones.Business/obj
+/MusalaDrones/MusalaDrones.Business/bin/Debug/netcoreapp3.1
+/MusalaDrones/MusalaDrones.Core/obj
+/MusalaDrones/MusalaDrones.Core/bin/Debug/netcoreapp3.1
+/MusalaDrones/MusalaDrones.WebApi/bin/Debug/netcoreapp3.1
+/MusalaDrones/MusalaDrones.WebApi/obj
