@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MusalaDrones.Core.CustomAttributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusalaDrones.Core.Models
 {
@@ -7,12 +8,12 @@ namespace MusalaDrones.Core.Models
         [Key]
         public int Id { get; set; }
 
-        // TODO: Add a custom data annotation to validate allowed only letters, numbers, ‘-‘, ‘_’
+        [MedicationName]
         public string Name { get; set; }
 
         public decimal Weight { get; set; }
 
-        // TODO: Add a custom data annotation to validate allowed only letters, numbers, ‘-‘, ‘_’
+        [MedicationCode]
         public string Code { get; set; }
 
         /// <summary>
