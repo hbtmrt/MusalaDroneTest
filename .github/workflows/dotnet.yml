@@ -22,5 +22,3 @@ jobs:
       working-directory: MusalaDrones
     - name: Build
       run: dotnet build MusalaDrones/MusalaDrones.sln -c release --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
