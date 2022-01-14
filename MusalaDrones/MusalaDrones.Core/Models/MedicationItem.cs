@@ -10,6 +10,8 @@ namespace MusalaDrones.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public int DroneId { get; set; }
+
         [MedicationName]
         public string Name { get; set; }
 

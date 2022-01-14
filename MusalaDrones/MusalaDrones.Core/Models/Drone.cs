@@ -32,6 +32,6 @@ namespace MusalaDrones.Core.Models
         [Required]
         public DroneState State { get; set; }
 
-        public virtual ICollection<MedicationItem> MedicationItems { get; set; }
+        public ICollection<MedicationItem> MedicationItems { get; set; }
     }
 }

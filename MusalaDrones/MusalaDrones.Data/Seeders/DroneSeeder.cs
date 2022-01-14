@@ -46,7 +46,7 @@ namespace MusalaDrones.Data.Seeders
                 Model = GetRandomDroneModel(),
                 SerialNumber = Guid.NewGuid().ToString(),
                 State = state,
-                WeightLimit = random.Next(100, 500)
+                WeightLimit = random.Next(400, 500)
             };
 
             AddMedicationItems(drone);
@@ -60,9 +60,13 @@ namespace MusalaDrones.Data.Seeders
             int maxItemsAmount = random.Next(1, 5);
             drone.MedicationItems = new List<MedicationItem>();
 
-            while (drone.MedicationItems.Count < maxItemsAmount && drone.WeightLimit >= drone.MedicationItems.Sum(mi => mi.Weight))
+            int retries = 0;
+
+            while (retries < 10 && drone.MedicationItems.Count < maxItemsAmount && drone.WeightLimit >= drone.MedicationItems.Sum(mi => mi.Weight))
             {
-                int itemWeight = random.Next(10, 300);
+                retries++;
+
+                int itemWeight = random.Next(100, 500);
 
                 if (drone.WeightLimit < drone.MedicationItems.Sum(mi => mi.Weight) + itemWeight)
                 {

@@ -21,6 +21,7 @@ namespace MusalaDrones.Business.Services
         public async Task<List<Drone>> GetAvailableDronesAsync()
         {
             return await dbContext.Drones
+                .Include(d => d.MedicationItems)
                 .Where(d => d.State == Core.Statics.Enums.DroneState.IDLE
                     && d.BatteryCapacity > Constants.AcceptableBatterLevel).ToListAsync();
         }
@@ -39,19 +40,23 @@ namespace MusalaDrones.Business.Services
 
         public async Task<List<MedicationItem>> GetLoadedMedicationItemsAsync(int id)
         {
-            Drone drone = await dbContext.Drones.FindAsync(id);
+            Drone drone = await dbContext.Drones
+                .Include(d => d.MedicationItems)
+                .FirstOrDefaultAsync(d => d.Id == id);
 
             if (drone == null)
             {
                 throw new DroneNotFoundException();
             }
 
-            return drone.MedicationItems.ToList();
+            return drone.MedicationItems?.ToList();
         }
 
         public async Task LoadDroneAsync(int id, List<int> medicationItemIds)
         {
-            Drone drone = await dbContext.Drones.FindAsync(id);
+            Drone drone = await dbContext.Drones
+                .Include(d => d.MedicationItems)
+                .FirstOrDefaultAsync(d => d.Id == id);
 
             if (drone == null)
             {
@@ -76,7 +81,18 @@ namespace MusalaDrones.Business.Services
                 throw new DroneOverloadException();
             }
 
-            drone.MedicationItems = medicationItems;
+            if (drone.MedicationItems == null)
+            {
+                drone.MedicationItems = medicationItems;
+            }
+            else
+            {
+                medicationItems.ForEach(mi =>
+                {
+                    drone.MedicationItems.Add(mi);
+                });
+            }
+
             await dbContext.SaveChangesAsync();
         }
 

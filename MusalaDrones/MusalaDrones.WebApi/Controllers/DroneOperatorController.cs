@@ -5,7 +5,6 @@ using MusalaDrones.Core.Exceptions;
 using MusalaDrones.Core.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusalaDrones.WebApi.Controllers
