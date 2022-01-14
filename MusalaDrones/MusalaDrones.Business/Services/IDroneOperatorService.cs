@@ -10,6 +10,7 @@ namespace MusalaDrones.Business.Services
         /// Registers a drone to the fleet.
         /// </summary>
         /// <param name="drone"></param>
+        /// <exception cref="DronesReachedMaxNumberInFleetException">The maximum number of drones in the fleet has reached.</exception>
         Task RegisterDroneAsync(Drone drone);
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace MusalaDrones.Business.Services
         /// </summary>
         /// <param name="id">The ID of drone.</param>
         /// <returns>The list of medication items of type <see cref="MedicationItem".</returns>
-        Task GetLoadedMedicationItemsAsync(int id);
+        Task<List<MedicationItem>> GetLoadedMedicationItemsAsync(int id);
 
         /// <summary>
         /// Returns available drones in the fleet.
@@ -31,5 +32,12 @@ namespace MusalaDrones.Business.Services
         /// </summary>
         /// <returns>A list of objects of type <see cref="Drone"/>.</returns>
         Task<List<Drone>> GetAvailableDrones();
+
+        /// <summary>
+        /// Returns the battery level of the drone specified by the id.
+        /// </summary>
+        /// <param name="id">The Id of the drone.</param>
+        /// <returns>The battery level.</returns>
+        Task<decimal> GetBatteryLevel(int id);
     }
 }
