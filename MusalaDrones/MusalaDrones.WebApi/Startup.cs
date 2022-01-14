@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusalaDrones.Data.DbContexts;
+using MusalaDrones.Data.Seeders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,7 @@ namespace MusalaDrones.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<DroneContext>(opt => opt.UseInMemoryDatabase(databaseName: "MusalaDrones"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +47,15 @@ namespace MusalaDrones.WebApi
             {
                 endpoints.MapControllers();
             });
+
+            Seed(app);
+        }
+
+        private static void Seed(IApplicationBuilder app)
+        {
+            var serviceScope = app.ApplicationServices.CreateScope();
+            var context = serviceScope.ServiceProvider.GetService<DroneContext>();
+            DroneSeeder.Seed(context);
         }
     }
 }

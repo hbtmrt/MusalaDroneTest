@@ -9,3 +9,5 @@
 /MusalaDrones/MusalaDrones.Core/bin/Debug/netcoreapp3.1
 /MusalaDrones/MusalaDrones.WebApi/bin/Debug/netcoreapp3.1
 /MusalaDrones/MusalaDrones.WebApi/obj
+/MusalaDrones/MusalaDrones.Data/obj
+/MusalaDrones/MusalaDrones.Data/bin/Debug/netcoreapp3.1
