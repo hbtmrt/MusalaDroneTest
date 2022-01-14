@@ -54,6 +54,7 @@ namespace MusalaDrones.WebApi.Controllers
         [HttpPost("drone/{id}/load")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> LoadDroneAsync(int id, [FromBody] List<int> medicationItemIds)
         {
@@ -66,6 +67,10 @@ namespace MusalaDrones.WebApi.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status404NotFound);
             }
+            catch (LowBatteryLevelException)
+            {
+                return new StatusCodeResult(StatusCodes.Status412PreconditionFailed);
+            }
             catch (MedicationItemNotFoundException)
             {
                 return new StatusCodeResult(StatusCodes.Status404NotFound);
@@ -77,7 +82,7 @@ namespace MusalaDrones.WebApi.Controllers
         }
 
         [HttpGet("drone/{id}/medicationitems")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MedicationItem))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetLoadedMedicationItemsAsync(int id)
@@ -97,7 +102,7 @@ namespace MusalaDrones.WebApi.Controllers
         }
 
         [HttpGet("drone/available")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Drone>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAvailableDrones()
         {
@@ -112,7 +117,7 @@ namespace MusalaDrones.WebApi.Controllers
         }
 
         [HttpGet("drone/{id}/batterylevel")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(decimal))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBatteryLevelAsync(int id)

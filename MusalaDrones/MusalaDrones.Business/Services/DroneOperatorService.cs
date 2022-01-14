@@ -38,6 +38,8 @@ namespace MusalaDrones.Business.Services
                 throw new DronesReachedMaxNumberInFleetException(Constants.ErrorMessage.CannotRegisterMoreDrones);
             }
 
+            drone.State = Core.Statics.Enums.DroneState.IDLE; // A drone is always Idle when registering (assuming)
+
             dbContext.Drones.Add(drone);
             await dbContext.SaveChangesAsync();
         }
@@ -53,11 +55,24 @@ namespace MusalaDrones.Business.Services
                 throw new DroneNotFoundException();
             }
 
+            if (drone.BatteryCapacity < Constants.AcceptableBatterLevel)
+            {
+                throw new LowBatteryLevelException();
+            }
+
+            // Moment before the medical items are loading, the drone is set to loading state.
+            drone.State = Core.Statics.Enums.DroneState.LOADING;
+            await dbContext.SaveChangesAsync();
+
             var medicationItems = dbContext.MedicationItems.Where(mi => medicationItemIds.Contains(mi.Id)).ToList();
 
             if (medicationItems.Count != medicationItemIds.Count)
             {
                 var notFoundMedicationItemIds = medicationItemIds.Except(medicationItems.Select(mi => mi.Id)).ToList();
+
+                drone.State = Core.Statics.Enums.DroneState.IDLE; // rolling back to IDLE state.
+                await dbContext.SaveChangesAsync();
+
                 throw new MedicationItemNotFoundException(
                     string.Format(Constants.ErrorMessage.MedicationItemsNotFound, string.Join(",", notFoundMedicationItemIds)));
             }
@@ -68,6 +83,8 @@ namespace MusalaDrones.Business.Services
 
             if (totalWeight > drone.WeightLimit)
             {
+                drone.State = Core.Statics.Enums.DroneState.IDLE; // rolling back to IDLE state.
+                await dbContext.SaveChangesAsync();
                 throw new DroneOverloadException();
             }
 
@@ -83,6 +100,7 @@ namespace MusalaDrones.Business.Services
                 });
             }
 
+            drone.State = Core.Statics.Enums.DroneState.LOADED; // everything has been loaded successfully.
             await dbContext.SaveChangesAsync();
         }
 
