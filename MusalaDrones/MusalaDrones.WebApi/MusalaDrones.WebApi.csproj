@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MusalaDrones.Business\MusalaDrones.Business.csproj" />
     <ProjectReference Include="..\MusalaDrones.Data\MusalaDrones.Data.csproj" />
   </ItemGroup>
 

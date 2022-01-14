@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusalaDrones.Business.Services;
+using MusalaDrones.Core.Statics;
 using MusalaDrones.Data.DbContexts;
 using MusalaDrones.Data.Seeders;
 using System;
@@ -28,7 +30,8 @@ namespace MusalaDrones.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<DroneContext>(opt => opt.UseInMemoryDatabase(databaseName: "MusalaDrones"));
+            services.AddDbContext<DroneContext>(opt => opt.UseInMemoryDatabase(databaseName: Constants.InMemoryTableName));
+            services.AddTransient<IDroneOperatorService, DroneOperatorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

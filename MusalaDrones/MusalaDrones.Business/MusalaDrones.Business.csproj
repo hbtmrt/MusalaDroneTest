@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MusalaDrones.Core\MusalaDrones.Core.csproj" />
+    <ProjectReference Include="..\MusalaDrones.Data\MusalaDrones.Data.csproj" />
+  </ItemGroup>
+
 </Project>
