@@ -31,7 +31,7 @@ namespace MusalaDrones.Business.Services
         /// The drones which are in Idle mode and battery leve having more than 25%.
         /// </summary>
         /// <returns>A list of objects of type <see cref="Drone"/>.</returns>
-        Task<List<Drone>> GetAvailableDrones();
+        Task<List<Drone>> GetAvailableDronesAsync();
 
         /// <summary>
         /// Returns the battery level of the drone specified by the id.

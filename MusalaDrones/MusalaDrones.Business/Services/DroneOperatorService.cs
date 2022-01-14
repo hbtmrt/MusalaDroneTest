@@ -18,7 +18,7 @@ namespace MusalaDrones.Business.Services
             dbContext = context;
         }
 
-        public async Task<List<Drone>> GetAvailableDrones()
+        public async Task<List<Drone>> GetAvailableDronesAsync()
         {
             return await dbContext.Drones
                 .Where(d => d.State == Core.Statics.Enums.DroneState.IDLE

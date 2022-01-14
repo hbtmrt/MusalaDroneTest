@@ -112,5 +112,20 @@ namespace MusalaDrones.WebApi.Controllers
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
-    }
 
+        [HttpGet("drone/available")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAvailableDrones()
+        {
+            try
+            {
+                return Ok(await service.GetAvailableDronesAsync());
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+    }
+}
