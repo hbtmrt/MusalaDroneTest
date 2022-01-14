@@ -31,7 +31,7 @@ namespace MusalaDrones.Business.Services
 
         #region Methods - IDroneOperatorService Members
 
-        public async Task RegisterDroneAsync(Drone drone)
+        public async Task<Drone> RegisterDroneAsync(Drone drone)
         {
             if (dbContext.Drones.Count() >= Constants.DronesLimitInFleet)
             {
@@ -42,9 +42,11 @@ namespace MusalaDrones.Business.Services
 
             dbContext.Drones.Add(drone);
             await dbContext.SaveChangesAsync();
+
+            return drone;
         }
 
-        public async Task LoadDroneAsync(int id, List<int> medicationItemIds)
+        public async Task<Drone> LoadDroneAsync(int id, List<int> medicationItemIds)
         {
             Drone drone = await dbContext.Drones
                 .Include(d => d.MedicationItems)
@@ -102,6 +104,8 @@ namespace MusalaDrones.Business.Services
 
             drone.State = Core.Statics.Enums.DroneState.LOADED; // everything has been loaded successfully.
             await dbContext.SaveChangesAsync();
+
+            return drone;
         }
 
         public async Task<List<MedicationItem>> GetLoadedMedicationItemsAsync(int id)

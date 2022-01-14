@@ -31,7 +31,7 @@ namespace MusalaDrones.WebApi.Controllers
         #region Methods
 
         [HttpPost("drone")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Drone))]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> RegisterDroneAsync([FromBody] Drone drone)
@@ -43,8 +43,7 @@ namespace MusalaDrones.WebApi.Controllers
 
             try
             {
-                await service.RegisterDroneAsync(drone);
-                return Ok();
+                return Ok(await service.RegisterDroneAsync(drone));
             }
             catch (DronesReachedMaxNumberInFleetException)
             {
@@ -57,7 +56,7 @@ namespace MusalaDrones.WebApi.Controllers
         }
 
         [HttpPost("drone/{id}/load")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Drone))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -65,8 +64,7 @@ namespace MusalaDrones.WebApi.Controllers
         {
             try
             {
-                await service.LoadDroneAsync(id, medicationItemIds);
-                return Ok();
+                return Ok(await service.LoadDroneAsync(id, medicationItemIds));
             }
             catch (DroneNotFoundException)
             {

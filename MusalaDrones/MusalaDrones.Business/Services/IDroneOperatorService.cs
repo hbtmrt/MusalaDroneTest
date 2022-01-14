@@ -14,13 +14,13 @@ namespace MusalaDrones.Business.Services
         /// </summary>
         /// <param name="drone"></param>
         /// <exception cref="DronesReachedMaxNumberInFleetException">The maximum number of drones in the fleet has reached.</exception>
-        Task RegisterDroneAsync(Drone drone);
+        Task<Drone> RegisterDroneAsync(Drone drone);
 
         /// <summary>
         /// Loads medication items to the drone specified by the id.
         /// </summary>
         /// <param name="medicationItemIds">List of Medicaiton item ids.</param>
-        Task LoadDroneAsync(int id, List<int> medicationItemIds);
+        Task<Drone> LoadDroneAsync(int id, List<int> medicationItemIds);
 
         /// <summary>
         /// Returns a list of medication items of type <see cref="MedicationItem" for the drone specified by the id./>
