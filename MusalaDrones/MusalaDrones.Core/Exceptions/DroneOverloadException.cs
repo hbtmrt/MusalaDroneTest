@@ -2,6 +2,9 @@
 
 namespace MusalaDrones.Core.Exceptions
 {
+    /// <summary>
+    /// This is used when the drone is going to be overloaded with new medical items.
+    /// </summary>
     public class DroneOverloadException : Exception
     {
         public DroneOverloadException()

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MusalaDrones.Core.Statics
+﻿namespace MusalaDrones.Core.Statics
 {
     public static class Constants
     {

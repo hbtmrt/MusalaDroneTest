@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace MusalaDrones.Business.Services
 {
+    /// <summary>
+    /// Defines methods relavent to the dront operating service.
+    /// </summary>
     public interface IDroneOperatorService
     {
         /// <summary>

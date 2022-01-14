@@ -9,47 +9,37 @@ using System.Threading.Tasks;
 
 namespace MusalaDrones.Business.Services
 {
+    /// <summary>
+    /// Concreate implementation of drone operating service.
+    /// </summary>
     public sealed class DroneOperatorService : IDroneOperatorService
     {
+        #region Declarations
+
         private readonly DroneContext dbContext;
+
+        #endregion Declarations
+
+        #region Constructors
 
         public DroneOperatorService(DroneContext context)
         {
             dbContext = context;
         }
 
-        public async Task<List<Drone>> GetAvailableDronesAsync()
-        {
-            return await dbContext.Drones
-                .Include(d => d.MedicationItems)
-                .Where(d => d.State == Core.Statics.Enums.DroneState.IDLE
-                    && d.BatteryCapacity > Constants.AcceptableBatterLevel).ToListAsync();
-        }
+        #endregion Constructors
 
-        public async Task<decimal> GetBatteryLevelAsync(int id)
-        {
-            Drone drone = await dbContext.Drones.FindAsync(id);
+        #region Methods - IDroneOperatorService Members
 
-            if (drone == null)
+        public async Task RegisterDroneAsync(Drone drone)
+        {
+            if (dbContext.Drones.Count() >= Constants.DronesLimitInFleet)
             {
-                throw new DroneNotFoundException();
+                throw new DronesReachedMaxNumberInFleetException(Constants.ErrorMessage.CannotRegisterMoreDrones);
             }
 
-            return drone.BatteryCapacity;
-        }
-
-        public async Task<List<MedicationItem>> GetLoadedMedicationItemsAsync(int id)
-        {
-            Drone drone = await dbContext.Drones
-                .Include(d => d.MedicationItems)
-                .FirstOrDefaultAsync(d => d.Id == id);
-
-            if (drone == null)
-            {
-                throw new DroneNotFoundException();
-            }
-
-            return drone.MedicationItems?.ToList();
+            dbContext.Drones.Add(drone);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task LoadDroneAsync(int id, List<int> medicationItemIds)
@@ -96,15 +86,40 @@ namespace MusalaDrones.Business.Services
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task RegisterDroneAsync(Drone drone)
+        public async Task<List<MedicationItem>> GetLoadedMedicationItemsAsync(int id)
         {
-            if (dbContext.Drones.Count() >= Constants.DronesLimitInFleet)
+            Drone drone = await dbContext.Drones
+                .Include(d => d.MedicationItems)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (drone == null)
             {
-                throw new DronesReachedMaxNumberInFleetException(Constants.ErrorMessage.CannotRegisterMoreDrones);
+                throw new DroneNotFoundException();
             }
 
-            dbContext.Drones.Add(drone);
-            await dbContext.SaveChangesAsync();
+            return drone.MedicationItems?.ToList();
         }
+
+        public async Task<List<Drone>> GetAvailableDronesAsync()
+        {
+            return await dbContext.Drones
+                .Include(d => d.MedicationItems)
+                .Where(d => d.State == Core.Statics.Enums.DroneState.IDLE
+                    && d.BatteryCapacity > Constants.AcceptableBatterLevel).ToListAsync();
+        }
+
+        public async Task<decimal> GetBatteryLevelAsync(int id)
+        {
+            Drone drone = await dbContext.Drones.FindAsync(id);
+
+            if (drone == null)
+            {
+                throw new DroneNotFoundException();
+            }
+
+            return drone.BatteryCapacity;
+        }
+
+        #endregion Methods - IDroneOperatorService Members
     }
 }

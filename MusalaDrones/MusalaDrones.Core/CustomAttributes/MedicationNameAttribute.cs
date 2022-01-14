@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace MusalaDrones.Core.CustomAttributes
 {
+    /// <summary>
+    /// Validates wheather a string has only letters, numbers, '_' and '-'.
+    /// </summary>
     public class MedicationNameAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)

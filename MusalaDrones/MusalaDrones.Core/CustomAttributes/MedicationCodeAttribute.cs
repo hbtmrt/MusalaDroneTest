@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace MusalaDrones.Core.CustomAttributes
 {
+    /// <summary>
+    /// Validates wheather the string has only upper case letters, underscore and numbers.
+    /// </summary>
     public class MedicationCodeAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)

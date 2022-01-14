@@ -13,18 +13,22 @@ namespace MusalaDrones.WebApi.Controllers
     [ApiController]
     public class DroneOperatorController : ControllerBase
     {
+        #region Declarations
+
         private readonly IDroneOperatorService service;
+
+        #endregion Declarations
+
+        #region Constructors
 
         public DroneOperatorController(IDroneOperatorService operatorService)
         {
             service = operatorService;
         }
 
-        [HttpGet]
-        public string Get()
-        {
-            return "Test works.";
-        }
+        #endregion Constructors
+
+        #region Methods
 
         [HttpPost("drone")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
@@ -92,6 +96,21 @@ namespace MusalaDrones.WebApi.Controllers
             }
         }
 
+        [HttpGet("drone/available")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAvailableDrones()
+        {
+            try
+            {
+                return Ok(await service.GetAvailableDronesAsync());
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpGet("drone/{id}/batterylevel")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -112,19 +131,6 @@ namespace MusalaDrones.WebApi.Controllers
             }
         }
 
-        [HttpGet("drone/available")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAvailableDrones()
-        {
-            try
-            {
-                return Ok(await service.GetAvailableDronesAsync());
-            }
-            catch (Exception)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
-        }
+        #endregion Methods
     }
 }
