@@ -1,4 +1,6 @@
-﻿using MusalaDrones.Core.Statics.Enums;
+﻿using MusalaDrones.Core.CustomAttributes;
+using MusalaDrones.Core.Statics;
+using MusalaDrones.Core.Statics.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +19,7 @@ namespace MusalaDrones.Core.Models
         public string SerialNumber { get; set; }
 
         [Required]
+        [EnumValidateExists(EnumType =typeof(DroneModel),ErrorMessage =Constants.ErrorMessage.InvalidDroneModel)]
         public DroneModel Model { get; set; }
 
         /// <summary>
@@ -27,9 +30,11 @@ namespace MusalaDrones.Core.Models
         public decimal WeightLimit { get; set; }
 
         [Required]
+        [Range(0, 100)]
         public decimal BatteryCapacity { get; set; }
 
         [Required]
+        [EnumValidateExists(EnumType = typeof(DroneState), ErrorMessage = Constants.ErrorMessage.InvalidDroneState)]
         public DroneState State { get; set; }
 
         public ICollection<MedicationItem> MedicationItems { get; set; }

@@ -14,6 +14,8 @@
         {
             public const string CannotRegisterMoreDrones = "Sorry, the fleet has reached the maximum amount of drones that can be loaded.";
             public const string MedicationItemsNotFound = "Medication items not found in DB for medication item ids: {0}.";
+            public const string InvalidDroneModel = "Invalid drone model.";
+            public const string InvalidDroneState = "Invalid drone state.";
         }
     }
 }

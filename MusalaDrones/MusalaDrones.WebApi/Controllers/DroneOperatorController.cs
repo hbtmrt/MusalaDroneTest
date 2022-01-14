@@ -36,6 +36,11 @@ namespace MusalaDrones.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> RegisterDroneAsync([FromBody] Drone drone)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             try
             {
                 await service.RegisterDroneAsync(drone);
