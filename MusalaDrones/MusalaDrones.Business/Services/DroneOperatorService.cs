@@ -25,7 +25,7 @@ namespace MusalaDrones.Business.Services
                     && d.BatteryCapacity > Constants.AcceptableBatterLevel).ToListAsync();
         }
 
-        public async Task<decimal> GetBatteryLevel(int id)
+        public async Task<decimal> GetBatteryLevelAsync(int id)
         {
             Drone drone = await dbContext.Drones.FindAsync(id);
 

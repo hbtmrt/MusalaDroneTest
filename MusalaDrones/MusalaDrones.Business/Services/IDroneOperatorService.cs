@@ -38,6 +38,6 @@ namespace MusalaDrones.Business.Services
         /// </summary>
         /// <param name="id">The Id of the drone.</param>
         /// <returns>The battery level.</returns>
-        Task<decimal> GetBatteryLevel(int id);
+        Task<decimal> GetBatteryLevelAsync(int id);
     }
 }
