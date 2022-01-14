@@ -80,6 +80,10 @@ namespace MusalaDrones.WebApi.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status404NotFound);
             }
+            catch (DroneOverloadException)
+            {
+                return new StatusCodeResult(StatusCodes.Status412PreconditionFailed);
+            }
             catch (Exception)
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
