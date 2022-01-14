@@ -16,8 +16,8 @@ namespace MusalaDrones.Business.Services
         /// <summary>
         /// Loads medication items to the drone specified by the id.
         /// </summary>
-        /// <param name="medicationItems"></param>
-        Task LoadDroneAsync(int id, List<MedicationItem> medicationItems);
+        /// <param name="medicationItemIds">List of Medicaiton item ids.</param>
+        Task LoadDroneAsync(int id, List<int> medicationItemIds);
 
         /// <summary>
         /// Returns a list of medication items of type <see cref="MedicationItem" for the drone specified by the id./>

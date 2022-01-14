@@ -49,7 +49,7 @@ namespace MusalaDrones.Business.Services
             return drone.MedicationItems.ToList();
         }
 
-        public async Task LoadDroneAsync(int id, List<MedicationItem> medicationItems)
+        public async Task LoadDroneAsync(int id, List<int> medicationItemIds)
         {
             Drone drone = await dbContext.Drones.FindAsync(id);
 
@@ -58,7 +58,20 @@ namespace MusalaDrones.Business.Services
                 throw new DroneNotFoundException();
             }
 
-            if (medicationItems.Sum(mi => mi.Weight) > drone.WeightLimit)
+            var medicationItems = dbContext.MedicationItems.Where(mi => medicationItemIds.Contains(mi.Id)).ToList();
+
+            if (medicationItems.Count != medicationItemIds.Count)
+            {
+                var notFoundMedicationItemIds = medicationItemIds.Except(medicationItems.Select(mi => mi.Id)).ToList();
+                throw new MedicationItemNotFoundException(
+                    string.Format(Constants.ErrorMessage.MedicationItemsNotFound, string.Join(",", notFoundMedicationItemIds)));
+            }
+
+            decimal totalWeight = dbContext.MedicationItems
+                .Where(mi => medicationItemIds.Contains(mi.Id))
+                .Sum(mi => mi.Weight);
+
+            if (totalWeight > drone.WeightLimit)
             {
                 throw new DroneOverloadException();
             }

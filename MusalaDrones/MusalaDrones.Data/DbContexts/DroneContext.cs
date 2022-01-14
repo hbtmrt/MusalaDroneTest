@@ -11,6 +11,6 @@ namespace MusalaDrones.Data.DbContexts
         }
 
         public DbSet<Drone> Drones { get; set; }
-        public DbSet<MedicationItem> MedicationItem { get; set; }
+        public DbSet<MedicationItem> MedicationItems { get; set; }
     }
 }
