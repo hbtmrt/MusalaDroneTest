@@ -47,5 +47,30 @@ namespace MusalaDrones.WebApi.Controllers
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpPost("drone/{id}/load")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> LoadDroneAsync(int id, [FromBody] List<int> medicationItemIds)
+        {
+            try
+            {
+                await service.LoadDroneAsync(id, medicationItemIds);
+                return Ok();
+            }
+            catch (DroneNotFoundException)
+            {
+                return new StatusCodeResult(StatusCodes.Status404NotFound);
+            }
+            catch (MedicationItemNotFoundException)
+            {
+                return new StatusCodeResult(StatusCodes.Status404NotFound);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
