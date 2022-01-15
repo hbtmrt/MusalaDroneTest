@@ -45,6 +45,7 @@ Checks if the given value exist in the enum.
 Checks if the medical code is valid.
 -- MedicationNameAttribute
 Checks if the medical name is valid.
+-- Unit Testing has not been written.
 
 ## Running the application
 
