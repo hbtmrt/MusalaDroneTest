@@ -3,6 +3,7 @@ using MusalaDrones.Core.Exceptions;
 using MusalaDrones.Core.Models;
 using MusalaDrones.Core.Statics;
 using MusalaDrones.Data.DbContexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +37,11 @@ namespace MusalaDrones.Business.Services
             if (dbContext.Drones.Count() >= Constants.DronesLimitInFleet)
             {
                 throw new DronesReachedMaxNumberInFleetException(Constants.ErrorMessage.CannotRegisterMoreDrones);
+            }
+
+            if (dbContext.Drones.Any(d => d.SerialNumber.Equals(drone.SerialNumber)))
+            {
+                throw new NotUniqueExeption(Constants.ErrorMessage.NotAUniqueSerial);
             }
 
             drone.State = Core.Statics.Enums.DroneState.IDLE; // A drone is always Idle when registering (assuming)

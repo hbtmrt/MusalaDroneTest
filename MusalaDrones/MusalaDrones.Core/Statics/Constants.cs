@@ -1,4 +1,6 @@
-﻿namespace MusalaDrones.Core.Statics
+﻿using System.Runtime.Serialization;
+
+namespace MusalaDrones.Core.Statics
 {
     public static class Constants
     {
@@ -18,6 +20,7 @@
             public const string MedicationItemsNotFound = "Medication items not found in DB for medication item ids: {0}.";
             public const string InvalidDroneModel = "Invalid drone model.";
             public const string InvalidDroneState = "Invalid drone state.";
+            public const string NotAUniqueSerial = "The serial number exists.";
         }
     }
 }
