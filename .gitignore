@@ -13,3 +13,5 @@
 /MusalaDrones/MusalaDrones.Data/bin/Debug/netcoreapp3.1
 /MusalaDrones/.vs/MusalaDrones/DesignTimeBuild
 /MusalaDrones/.vs/MusalaDrones/config
+/MusalaDrones/MusalaDrones.CheckBatteryLevelsJob/obj
+/MusalaDrones/MusalaDrones.CheckBatteryLevelsJob/bin/Debug/netcoreapp3.1

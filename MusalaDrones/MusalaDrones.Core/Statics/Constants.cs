@@ -10,6 +10,8 @@
         // The percentage of the battery level in the drone to carry medical items.
         public const int AcceptableBatterLevel = 25;
 
+        public const int BatterLevelCheckingJobInterval = 10*60*1000; // 10 minutes
+
         public static class ErrorMessage
         {
             public const string CannotRegisterMoreDrones = "Sorry, the fleet has reached the maximum amount of drones that can be loaded.";

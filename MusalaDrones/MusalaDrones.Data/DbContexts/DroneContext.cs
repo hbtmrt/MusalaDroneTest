@@ -12,5 +12,8 @@ namespace MusalaDrones.Data.DbContexts
 
         public DbSet<Drone> Drones { get; set; }
         public DbSet<MedicationItem> MedicationItems { get; set; }
+
+        // Review: plural of History is also history, so keep it as it is.
+        public DbSet<BatteryLevelHistory> History { get; set; }
     }
 }

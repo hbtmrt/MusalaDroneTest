@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusalaDrones.Core", "Musala
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusalaDrones.Business", "MusalaDrones.Business\MusalaDrones.Business.csproj", "{B8FA5D68-23BE-4D99-87E1-F7B98FA1C48D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusalaDrones.Data", "MusalaDrones.Data\MusalaDrones.Data.csproj", "{05E79F3D-F79B-41F1-9350-F7D9DB94E925}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusalaDrones.Data", "MusalaDrones.Data\MusalaDrones.Data.csproj", "{05E79F3D-F79B-41F1-9350-F7D9DB94E925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusalaDrones.CheckBatteryLevelsJob", "MusalaDrones.CheckBatteryLevelsJob\MusalaDrones.CheckBatteryLevelsJob.csproj", "{AD1FE927-418D-4B54-92E6-6F6E15E95B25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{05E79F3D-F79B-41F1-9350-F7D9DB94E925}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05E79F3D-F79B-41F1-9350-F7D9DB94E925}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05E79F3D-F79B-41F1-9350-F7D9DB94E925}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD1FE927-418D-4B54-92E6-6F6E15E95B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD1FE927-418D-4B54-92E6-6F6E15E95B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD1FE927-418D-4B54-92E6-6F6E15E95B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD1FE927-418D-4B54-92E6-6F6E15E95B25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
