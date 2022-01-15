@@ -2,6 +2,7 @@
 using MusalaDrones.Core.Models;
 using MusalaDrones.Core.Statics;
 using MusalaDrones.Data.DbContexts;
+using MusalaDrones.Data.Seeders;
 using System;
 using System.Linq;
 using System.Threading;
@@ -16,6 +17,9 @@ namespace MusalaDrones.CheckBatteryLevelsJob.Helpers
         public BatterLevelCheckingHelper()
         {
             dbContext = GetDroneContext();
+
+            //TODO: Remove later; for the testing purpose only
+            DroneSeeder.Seed(dbContext);
         }
 
         internal async Task CheckBatteryLevelsAsync(CancellationToken stoppingToken)
