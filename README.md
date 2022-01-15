@@ -46,6 +46,7 @@ Checks if the medical code is valid.
 -- MedicationNameAttribute
 Checks if the medical name is valid.
 -- Unit Testing has not been written.
+-- A github action is added (in .github/workflos) to makesure the application builds without any build errors.
 
 ## Running the application
 
