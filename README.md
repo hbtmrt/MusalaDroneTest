@@ -35,6 +35,7 @@
 - When retrieving available drones, it will not check only the battery level(battery level should be greater than 25), it will check whather the drone is in IDLE state.
 -- The scheduled job runs every 10 minutes.
 -- The project uses EF Core in-memory cache to store data, and it is not a distributed cache. Therefore the data created in the Web API project cannot be retreived in the scheduled job project. (since in-memory cache cannot be shared across processes.)
+-- Load drones endpoint - The medicaion items should exist in the system. Hence it has introduced as list of integer parameter in the method.
 
 ## Special Notes
 - The fake data is created when each project loads.
@@ -84,3 +85,37 @@ Json data:
 ```sh
 /droneoperator/drone/2/batterylevel
 ```
+
+## Test cases excecuted
+
+### POST /droneoperator/drone
+- Successful Register
+- Unsuccessful Register
+-- If the system has already 10 drones (maximum drones that can be registered)
+-- If invalid serial number is entered (having more than 100 characters)
+-- If the serial number already exist in the system
+-- If invalid model (ex - 5)
+-- If invalid weight limit (ex weight limit is greater than 500)
+-- If invalid battery percentage (not in range 0-100)
+-- If invalid state (ex - 6)
+
+### POST /droneoperator/drone/{id}/load
+- Successful request
+- Unsuccessful request
+-- If the drone not found
+-- If the battery level is below 25
+-- If one or more medicatin items are not found in the system
+-- if the total weight of the medication items are greater than the drone weight limit
+
+### GET /droneoperator/drone/{id}/medicationitems
+- Successful request
+- Unsuccessful request
+-- If the drone not found
+
+### GET /droneoperator/drone/available
+- Successful request
+
+### GET /droneoperator/drone/{id}/batterylevel
+- Successful request
+- Unsuccessful request
+-- If the drone not found
